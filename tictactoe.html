@@ -11,6 +11,7 @@
         width: 200px;
         height: 200px;
         border-style: solid;
+        text-align: center;
     }
 
     h1 {
@@ -23,7 +24,7 @@
     <div>
         <h1 class="center">Tic Tac Toe XO</h1>
     </div>
-    <table class="center">
+    <table id="tictac_table" class="center">
         <tr>
             <td></td>
             <td></td>
@@ -42,9 +43,47 @@
     </table>
 </body>
 
-<script type="javascript">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+    $(function () {
+
+        var clickCount = 0;
+
+        const userX = "X";
+        const userO = "O";
+
+        generateTable();
 
 
+        $('#tictac_table tr td').click(function (event) {
+            console.log(event);
+            var mark = defineUserOnClickCount();
+            setMarkXorO(event, mark);
+        });
+
+        function defineUserOnClickCount() {
+            clickCount++;
+            if (clickCount % 2 == 1) {
+                return userX;
+            } else {
+                return userO;
+            }
+        }
+
+        function setMarkXorO(event, mark) {
+            $(event.delegateTarget).html("<h2>" + mark + "</h2>");
+
+        }
+
+        function generateTable() {
+            var tableHtml = "";
+            for (var i = 0; i < 3; i++) {
+                tableHtml += "<tr>";
+            }
+        }
+
+    });
 
 </script>
 
