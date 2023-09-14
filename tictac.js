@@ -16,6 +16,7 @@ $(function () {
     $('#tictac_table tr td').click(function (event) {
         if (gameOver) {
             alert('Game Over !!!. Refresh page for a new game !');
+            return;
         }
         boxId = $(this).closest('td').attr('id');
         if (clickedHistory.includes(boxId)) {
