@@ -75,7 +75,7 @@ $(function () {
                         totalWay3 += element[0][j + "," + i];
                     }
                     if ((i == 0 && j == 2) || (i == 1 && j == 1) || (i == 2 && j == 0) || element[0][i + "," + j]) {
-                        totalWay3 += element[0][i + "," + j];
+                        totalWay4 += element[0][i + "," + j];
                     }
                 });
 
