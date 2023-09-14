@@ -1,6 +1,7 @@
 $(function () {
 
     var clickCount = 0;
+    var gameOver = false;
 
     const userX = "X";
     const userO = "O";
@@ -13,9 +14,12 @@ $(function () {
 
 
     $('#tictac_table tr td').click(function (event) {
+        if (gameOver) {
+            alert('Game Over !!!. Refresh page for a new game !');
+        }
         boxId = $(this).closest('td').attr('id');
         if (clickedHistory.includes(boxId)) {
-            $('#message').text("You can't override a decision. Please click vacant area.");
+            $('#message').text("You can't override a decision. Please click a vacant area.");
             return;
         }
         var mark = defineUserOnClickCount();
@@ -60,6 +64,7 @@ $(function () {
 
         totalWay2 = 0;
         totalWay4 = 0;
+        var count = 0;
         for (var i = 0; i < 3; i++) {
             var totalWay1 = 0;
             var totalWay3 = 0;
@@ -70,23 +75,36 @@ $(function () {
                     }
                     if (i == j && element[0][i + "," + j]) {
                         totalWay2 += element[0][i + "," + j];
+
                     }
                     if (element[0][j + "," + i]) {
                         totalWay3 += element[0][j + "," + i];
+
                     }
-                    if ((i == 0 && j == 2) || (i == 1 && j == 1) || (i == 2 && j == 0) || element[0][i + "," + j]) {
+                    if (((i == 0 && j == 2) || (i == 1 && j == 1) || (i == 2 && j == 0)) && element[0][i + "," + j]) {
                         totalWay4 += element[0][i + "," + j];
+                    }
+                    if (element[0][i + "," + j]) {
+                        count++;
                     }
                 });
 
                 if (totalWay1 == 3 || totalWay2 == 3 || totalWay3 == 3 || totalWay4 == 3) {
                     $('#result').text("Yo! X ,You won! :) :) ");
+                    gameOver = true;
                 }
                 if (totalWay1 == 30 || totalWay2 == 30 || totalWay3 == 30 || totalWay4 == 30) {
                     $('#result').text("Yo! O, You won! :) :)");
+                    gameOver = true;
+                }
+
+                if (count == 9) {
+                    $('#result').text("Drawn !");
+                    gameOver = true;
                 }
             }
         }
+
 
     }
 

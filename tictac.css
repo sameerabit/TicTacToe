@@ -37,6 +37,7 @@ table {
     margin-top: 100px;
 }
 
-.message {
+#message {
     text-align: center;
+    color: orange;
 }
