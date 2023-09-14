@@ -15,7 +15,7 @@ $(function () {
     $('#tictac_table tr td').click(function (event) {
         boxId = $(this).closest('td').attr('id');
         if (clickedHistory.includes(boxId)) {
-            alert("You can't override a decision. Please click vacant area.");
+            $('#message').text("You can't override a decision. Please click vacant area.");
             return;
         }
         var mark = defineUserOnClickCount();
@@ -53,16 +53,38 @@ $(function () {
     }
 
     function validateMove(boxId, mark) {
-        var points = mark == "X" ? 1 : 0;
+        alert(boxId);
+        var points = mark == "X" ? 1 : 10;
         var pointArr = [];
-        pointArr.push(boxId, points);
+        pointArr.push({ [boxId]: points });
         result.push(pointArr);
 
-        result.forEach(element => {
-            if (element.length > 0) {
-                console.log(element.split(","));
+        totalWay2 = 0;
+        for (var i = 0; i < 3; i++) {
+            var totalWay1 = 0;
+            var totalWay3 = 0;
+            for (var j = 0; j < 3; j++) {
+                result.forEach(element => {
+                    if (element[0][i + "," + j]) {
+                        totalWay1 += element[0][i + "," + j];
+                    }
+                    if (i == j && element[0][i + "," + j]) {
+                        totalWay2 += element[0][i + "," + j];
+                    }
+                    if (element[0][j + "," + i]) {
+                        totalWay3 += element[0][j + "," + i];
+                    }
+                });
+
+                if (totalWay1 == 3 || totalWay2 == 3 || totalWay3 == 3) {
+                    $('#result').text("Yo! X ,You won! :) :) ");
+                }
+                if (totalWay1 == 30 || totalWay2 == 30 || totalWay3 == 30) {
+                    $('#result').text("Yo! O, You won! :) :)");
+                }
             }
-        });
+        }
+
     }
 
 });
